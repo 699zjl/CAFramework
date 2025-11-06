@@ -11,6 +11,7 @@
 
 
 ## News
++ [2025-11-06] Add preprocess script for RETOUCH.
 + [2025-05-13] FunBench has been early accepted by MICCAI 2025! 🎉🎉🎉
 + [2025-03-28] FunBench is publicly available on [Hugging Face](https://huggingface.co/datasets/AIMClab-RUC/FunBench)
   
@@ -58,7 +59,10 @@ We adopt 14 public datasets in FunBench. Please download the images from the pro
 - Two multimodal datasets: [`MMC-AMD`](https://github.com/li-xirong/mmc-amd) and [`DeepDRiD`](https://github.com/deepdrdoc/DeepDRiD)
 
 ### 3. Image preprocess
-We perform preprocessing `preprocess.py` on CFP images to cut out the retina areas and ensure the images are square.
+We perform preprocessing `preprocess.py` on RETOUCH dataset and CFP images.
+
+For RETOUCH dataset, it extracts images and masks from the raw data.
+For CFP images, it cut out the retina areas and ensure the images are square.
 Specifically, some images in `Retinal-Lesions` will be rotated for 180 degrees to ensure consistency between their laterality labels and the image contents.
 
 The preprocessing may take 1-2 hours.

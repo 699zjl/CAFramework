@@ -4,6 +4,8 @@ import json
 import cv2
 import numpy as np
 from tqdm import tqdm
+from process_retouch import preprocess_oct_images
+
 
 def img_crop(im, height, width, X, Y, D):
     # crop image into a square with size D*D
@@ -33,17 +35,19 @@ def img_crop(im, height, width, X, Y, D):
 
 
 def main(img_root, out_root, info_path, copy_unprocessed_data):
-    datasets_without_preprocess = ['OCTDL', 'NEH', 'OCTID', 'UCSD', 'RETOUCH', 'TOP', 'MMC-AMD', os.path.join('DeepDRiD', 'ultra-widefield_images')]
+    datasets_without_preprocess = ['OCTDL', 'NEH', 'OCTID', 'UCSD', 'TOP', 'MMC-AMD', os.path.join('DeepDRiD', 'ultra-widefield_images')]
 
     # for symbolic link
     img_root = os.path.abspath(img_root)
     out_root = os.path.abspath(out_root)
 
+    # process RETOUCH
+    preprocess_oct_images(os.path.join(img_root, 'RETOUCH'), os.path.join(out_root, 'RETOUCH', 'pre_processed'))
+    
+    # process CFP
     with open(info_path) as fin:
         process_info = json.load(fin)
-
     for dataset in process_info:
-        
         print('processing', dataset)
         for img_name in tqdm(process_info[dataset]):
             img_path = os.path.join(img_root, img_name)
@@ -74,7 +78,6 @@ def main(img_root, out_root, info_path, copy_unprocessed_data):
                     
                 cv2.imwrite(out_path, im)
                     
-
     for dataset in datasets_without_preprocess:
         print('processing', dataset)
         if os.path.exists(os.path.join(out_root, dataset)):
