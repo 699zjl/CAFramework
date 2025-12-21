@@ -11,10 +11,16 @@
 
 
 ## News
++ [2025-12-21] Add more results.
 + [2025-11-06] Add preprocess script for RETOUCH.
 + [2025-05-13] FunBench has been early accepted by MICCAI 2025! 🎉🎉🎉
 + [2025-03-28] FunBench is publicly available on [Hugging Face](https://huggingface.co/datasets/AIMClab-RUC/FunBench)
   
+
+## TODO
+- [ ] Automated download script for datasets.
+
+
 ## Introduction
 
 Multimodal Large Language Models (MLLMs) have shown significant potential in medical image analysis. However, their capabilities in interpreting fundus images, a critical skill for ophthalmology, remain under-evaluated. Existing benchmarks lack fine-grained task divisions and fail to provide modular analysis of its two key modules, i.e., large language model (LLM) and vision encoder (VE). This paper introduces FunBench, a novel visual question answering (VQA) benchmark designed to comprehensively evaluate MLLMs’ fundus reading skills. FunBench features a hierarchical task organization across four levels (modality perception, anatomy perception, lesion analysis, and disease diagnosis). It also offers three targeted evaluation modes: linear-probe based VE evaluation, knowledge-prompted LLM evaluation, and holistic evaluation. Experiments on ten open-source MLLMs plus GPT-4o reveal significant deficiencies in fundus reading skills, particularly in basic tasks such as laterality recognition. The results highlight the limitations of current MLLMs and emphasize the need for domain-specific training and improved LLMs and VEs.
