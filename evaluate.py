@@ -77,9 +77,9 @@ class SentenceSimilarity(object):
     def __init__(self):
         
         # You can pre-download the model and pass the local path here
-        model_path = 'sentence-transformers/all-MiniLM-L6-v2' 
-        model_path = '/Users/weiqijie/Desktop/LLMs/code/all-MiniLM-L6-v2'
-        self.model = SentenceTransformer(model_path) 
+        # Default: download from HuggingFace Hub to the configured HF cache directory
+        model_path = 'sentence-transformers/all-MiniLM-L6-v2'
+        self.model = SentenceTransformer(model_path)
         self.count_all = 0   # The total number of questions
         self.count_match_faild = 0    # The number of questions that answers and options cannot directly matched
         

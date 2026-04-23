@@ -5,6 +5,7 @@ For other MLLMs, you need to implement custom Predictor.
 """
 
 import os
+# os.environ["HF_TOKEN"] = "your_hf_token"  # Set HF_TOKEN via environment variable
 import json
 from tqdm import tqdm
 
@@ -104,8 +105,16 @@ def main(img_root, text_root, set_name, model_path, out_root):
         out_data_emode2 = {}
         out_data_emode3 = {}
 
-        for img_name in tqdm(text_data):
+        processed_count = 0
+        pbar = tqdm(text_data)
+        for img_name in pbar:
             img_path = os.path.join(img_root, img_name)
+            
+            # --- 检查图片是否存在，不存在则跳过 ---
+            if not os.path.exists(img_path):
+                continue
+            
+            processed_count += 1
             text_prompt_emode2 = text_data[img_name]['E-mode2']
             text_prompt_emode3 = text_data[img_name]['E-mode3']
             
@@ -115,6 +124,9 @@ def main(img_root, text_root, set_name, model_path, out_root):
             
             out_emode3 = predictor.generate(query=text_prompt_emode3, img_path=img_path)
             out_data_emode3[img_name] = out_emode3
+        
+        task_name = subtask if subtask else task
+        print(f"Finished Task: {task_name}, Processed {processed_count} images (JSON Total: {len(text_data)})")
         
         if subtask is None:
             out_path_emode2 = os.path.join(out_root, 'emode2', level, task)
